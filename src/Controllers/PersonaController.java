@@ -12,9 +12,28 @@ public class PersonaController {
      * 
      * @param personas Array de Persona a ordenar.
      */
-    public void ordenarPorEdad(Persona[] personas) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+
+
+     public void ordenarPorEdad(Persona[] personas) {
+        int tam = personas.length;
+
+        for (int i = 1; i < tam; ++i) {
+            Persona aux = personas[i];  
+            int j = i - 1;
+
+            while (j >= 0 && aux.getEdad() < personas[j].getEdad()) {
+                personas[j + 1] = personas[j];  
+                j = j - 1;  
+            }
+
+            personas[j + 1] = aux;
+        }
     }
+    
+    
+
+    
 
     /**
      * Método para buscar la primera persona con una edad específica en un array de
@@ -26,7 +45,23 @@ public class PersonaController {
      *         encuentra.
      */
     public Persona buscarPorEdad(Persona[] personas, int edad) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        int bajo = 0;
+        int alto = personas.length - 1;
 
+        while ( alto >= bajo){
+            int central = (bajo + alto)/2;
+
+            if(personas[central].getEdad() == edad){
+                return personas[central];
+            }
+            if(personas[central].getEdad() > edad){
+                alto = central - 1 ;// izquierda
+
+            }else{
+                bajo = central + 1;// derecha
+            }
+        }
+        return null;
     }
+
 }
